@@ -1,41 +1,33 @@
 import { useState } from "react";
-import { validateWord } from "../service/apiService";
+import Timer from "../components/Timer";
+import WordInput from "../components/WordInput";
+import "../styles/styles.css";
 
 const Game = () => {
-const [inputValue, setInputValue] = useState("");
+  const [turn, setTurn] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); 
-    if (!inputValue.trim()) return; 
+  const handleWordSuccess = () => {
+    setTurn((prevTurn) => prevTurn + 1);
+  }
 
-    try {
-      const data = await validateWord(inputValue); 
-      console.log("Respuesta de la API:", data);
-      
-      setInputValue(""); 
-    } catch (error) {
-      console.error(error);
-      // TODO: toast.error("Error inesperado, vuelva a intentar.");
-    }
-  };
+  const handleTimeUp = () => {
+    setGameOver(true);
+    alert("Perdiste"); //TODO: reemplazar por página/modal de juego terminado con puntos
+  }
 
   return (
     <div>
-      <div>
-        <h1>Palabras encadenadas</h1>
+      <div className="timer">
+        {!gameOver && <Timer turn={turn} onTimeUp={handleTimeUp} maxSeconds={15} />}
       </div>
-      
-      <form onSubmit={handleSubmit} className="game-input">
-        <input
-          type="text"
-          placeholder=""
-          value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)} 
-        />
-        <button type="submit">Enviar</button>
-      </form>
+      <div className="game-box">
+        <h1 className="game-title">Palabras encadenadas</h1>
+        <WordInput onValidWord={handleWordSuccess} isDisable={gameOver} />    
+      </div>
     </div>
   );
 };
+
 
 export default Game;
