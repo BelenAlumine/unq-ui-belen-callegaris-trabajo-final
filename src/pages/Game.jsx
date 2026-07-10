@@ -2,6 +2,7 @@ import { useState } from "react";
 import Timer from "../components/Timer";
 import WordInput from "../components/WordInput";
 import Score from "../components/Score";
+import GameOver from "../components/GameOver"
 import "../styles/styles.css";
 
 const Game = () => {
@@ -16,7 +17,12 @@ const Game = () => {
 
   const handleTimeUp = () => {
     setGameOver(true);
-    alert("Perdiste"); //TODO: reemplazar por página/modal de juego terminado con puntos
+  }
+
+  const handleRestartGame = () => {
+    setScore(0);
+    setTurn(0);
+    setGameOver(false);
   }
 
   return (
@@ -31,6 +37,11 @@ const Game = () => {
         <h1 className="game-title">PALABRAS ENCADENADAS</h1>
         <WordInput onValidWord={handleWordSuccess} isDisable={gameOver} />    
       </div>
+      <GameOver 
+        isOpen={gameOver}
+        finalScore={score}
+        onRestart={handleRestartGame}
+      />
     </div>
   );
 };
