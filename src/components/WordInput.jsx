@@ -6,14 +6,16 @@ const WordInput = ({ onValidWord, isDisable }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!inputValue.trim() || isDisable) return;
+        const cleanWord = inputValue.trim();
+
+        if (!cleanWord || isDisable) return;
 
         try {
-            const data = await validateWord(inputValue.trim());
+            const data = await validateWord(cleanWord);
             console.log("data:::", data);
 
             if (data) {
-                onValidWord();
+                onValidWord(cleanWord);
                 setInputValue("");
             }
         } catch (error) {
