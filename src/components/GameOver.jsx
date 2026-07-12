@@ -16,7 +16,7 @@ const GameOver = ({ isOpen, finalScore, finalWords, onRestart }) => {
                     </div>
                     <div>
                         <p>PALABRAS</p>
-                        <p>{finalWords}</p>
+                        <p className='final-score'>{finalWords}</p>
                     </div>
                 </div>
                 <button className='restart-button' onClick={onRestart}>
