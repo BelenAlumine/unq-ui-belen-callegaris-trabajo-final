@@ -1,39 +1,43 @@
 import { useState } from "react";
-import { validateWord } from "../service/apiService";
+import { useGame } from "../context/GameContext";
+import '../styles/styles.css';
 
-const WordInput = ({ onValidWord, isDisable }) => {
+const WordInput = ({ isDisable }) => {
     const [inputValue, setInputValue] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const { handleWordSubmit, gameOver } = useGame();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const cleanWord = inputValue.trim();
 
         if (!cleanWord || isDisable) return;
+        setErrorMsg("");
 
-        try {
-            const data = await validateWord(cleanWord);
-            console.log("data:::", data);
+        const result = await handleWordSubmit(cleanWord);
 
-            if (data) {
-                onValidWord(cleanWord);
-                setInputValue("");
-            }
-        } catch (error) {
-            console.error(error);
-            // TODO: toast.error("Error inesperado, vuelva a intentar.");
-        }
+        if (result.success) setInputValue("");
+        else setErrorMsg(result.error);
     };
+
     return (
         <div>
-            <form onSubmit={handleSubmit} className="game-input">
+            <form onSubmit={handleSubmit} className="game-form">
                 <input
                     type="text"
                     placeholder=""
                     value={inputValue}
-                    disabled={isDisable}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    disabled={gameOver}
+                    onChange={(e) => {
+                            setInputValue(e.target.value);
+                            if (errorMsg) setErrorMsg("");
+                        }
+                    }
+                    className={`game-input ${errorMsg ? 'has-error' : ''}`}
                 />
             </form>
+            {errorMsg && <p className="error-msg">{errorMsg}</p>}
         </div>
     );
 }

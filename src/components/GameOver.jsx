@@ -1,7 +1,6 @@
-import React from 'react';
 import "../styles/gameOver.css"
 
-const GameOver = ({ isOpen, finalScore, onRestart }) => {
+const GameOver = ({ isOpen, finalScore, finalWords, onRestart }) => {
     if (!isOpen) return null;
 
     return (
@@ -11,8 +10,14 @@ const GameOver = ({ isOpen, finalScore, onRestart }) => {
                     JUEGO TERMINADO
                 </h2>
                 <div className='modal-stats'>
-                    <p>PUNTOS</p>
-                    <p className='final-score'>{finalScore}</p>
+                    <div>
+                        <p>PUNTOS</p>
+                        <p className='final-score'>{finalScore}</p>
+                    </div>
+                    <div>
+                        <p>PALABRAS</p>
+                        <p>{finalWords}</p>
+                    </div>
                 </div>
                 <button className='restart-button' onClick={onRestart}>
                     JUGAR DE NUEVO

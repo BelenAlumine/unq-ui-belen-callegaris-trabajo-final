@@ -51,6 +51,12 @@ body {
     line-height: 1.6;
 }
 
+.game-form {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
 .game-input {
     width: 90%;
     padding: 8px;
@@ -61,8 +67,31 @@ body {
     color: #ffffff;
     border: 2px solid #555555;
     outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
 }
 
 .game-input:focus {
     border-color: #33FF57;
+}
+
+.game-input.has-error {
+    border-color: #FF3333;
+}
+
+.game-input.game-input.has-error:focus {
+    border-color: #FF3333;
+}
+
+.word-list {
+    color: #F3FF33;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.error-msg {
+    color: #FF3333;
+    font-size: 0.7rem;
+    margin-top: 10px;
+    text-align: center;
 }
