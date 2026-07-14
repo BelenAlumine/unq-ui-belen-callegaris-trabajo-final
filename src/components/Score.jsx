@@ -1,3 +1,5 @@
+import '../styles/score.css';
+
 const Score = ({ points }) => {
     return (
         <div >

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import '../styles/timer.css';
 
 
 const Timer = ({ turn, onTimeUp, maxSeconds }) => {

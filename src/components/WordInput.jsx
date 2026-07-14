@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useGame } from "../context/GameContext";
-import '../styles/styles.css';
+import '../styles/wordInput.css';
 
 const WordInput = ({ isDisable }) => {
     const [inputValue, setInputValue] = useState("");
@@ -22,7 +22,7 @@ const WordInput = ({ isDisable }) => {
     };
 
     return (
-        <div>
+        <div className="word-input-container">
             <form onSubmit={handleSubmit} className="game-form">
                 <input
                     type="text"
