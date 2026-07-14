@@ -1,6 +1,6 @@
-.word-input-container { 
-    width: 100%; 
-    text-align: center; 
+.word-input-container {
+    width: 100%;
+    text-align: center;
 }
 
 .game-form {
@@ -11,34 +11,34 @@
 }
 
 .game-input {
-    width: 90%;
+    width: 85%;
     padding: 8px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.9rem;
-    text-align: left;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border: 4px solid #555555;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: var(--black-2);
+    color: var(--white-1);
+    border: 4px solid var(--gray-3);
     outline: none;
     box-sizing: border-box;
     transition: border-color 0.2s ease;
 }
 
 .game-input:focus {
-    border-color: #33FF57;
+    border-color: var(--green-1);
 }
 
 .game-input.has-error {
-    border-color: #FF3333;
+    border-color: var(--red-1);
 }
 
 .game-input.game-input.has-error:focus {
-    border-color: #FF3333;
+    border-color: var(--red-1);
     animation: shake 0.4s ease;
 }
 
 .error-msg {
-    color: #FF3333;
+    color: var(--red-1);
     font-size: 0.7rem;
     margin-top: 10px;
     text-align: center;

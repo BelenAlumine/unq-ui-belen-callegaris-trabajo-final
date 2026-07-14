@@ -26,9 +26,10 @@ const WordInput = ({ isDisable }) => {
             <form onSubmit={handleSubmit} className="game-form">
                 <input
                     type="text"
-                    placeholder=""
+                    placeholder="INGRESA UNA PALABRA"
                     value={inputValue}
                     disabled={gameOver}
+                    autoFocus
                     onChange={(e) => {
                             setInputValue(e.target.value);
                             if (errorMsg) setErrorMsg("");

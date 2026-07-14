@@ -1,6 +1,6 @@
 .score {
     font-size: 1.2rem;
-    color: #FFC300;
+    color: var(--yellow-2);
     position: absolute;
     top: 20px;
     right: 20px;

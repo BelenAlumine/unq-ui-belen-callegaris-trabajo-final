@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import '../styles/timer.css';
 
 
-const Timer = ({ turn, onTimeUp, maxSeconds }) => {
+const Timer = ({ turn, onTimeUp, maxSeconds, onSecondsLeft }) => {
     const [seconds, setSeconds] = useState(maxSeconds);
     const [isRunning, setIsRunning] = useState(true);
     const intervalRef = useRef(null);
@@ -17,6 +17,7 @@ const Timer = ({ turn, onTimeUp, maxSeconds }) => {
                         onTimeUp();
                         return 0;
                     }
+                    onSecondsLeft(prevSeconds - 1);
                     return prevSeconds - 1;
                 });
             }, 1000);
@@ -38,7 +39,7 @@ const Timer = ({ turn, onTimeUp, maxSeconds }) => {
 
     return (
         <div className='container'>
-            <h1 className='timer'>{formatTime(seconds)}</h1>
+            <h1 className={`timer ${seconds <= 5 ? 'timer-warning' : ''}`}>{formatTime(seconds)}</h1>
         </div>
     );
 };
