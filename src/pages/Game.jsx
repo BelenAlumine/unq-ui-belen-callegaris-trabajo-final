@@ -53,7 +53,6 @@ const Game = () => {
         isOpen={gameOver}
         finalScore={score}
         finalWords={wordList.length}
-        onRestart={restartGame}
       />
 
       {isWarning && <div className='danger-overlay' />}

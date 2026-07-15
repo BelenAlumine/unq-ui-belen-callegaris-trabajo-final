@@ -40,7 +40,7 @@ html, body {
 }
 
 body {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', Impact;
     background-color: var(--black-2);
     color: var(--white-2);
     margin: 0;

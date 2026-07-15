@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { GameProvider } from './context/GameContext';
+import Home from '../src/pages/Home'
 import Game from '../src/pages/Game'
 
 const NotFound = () => {
@@ -19,7 +20,8 @@ function App() {
     <GameProvider>
       <Router>
         <Routes>
-          <Route path='/' element={<Game />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/game' element={<Game />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>

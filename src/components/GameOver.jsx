@@ -1,6 +1,18 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGame } from "../context/GameContext"
 import "../styles/gameOver.css"
 
-const GameOver = ({ isOpen, finalScore, finalWords, onRestart }) => {
+const GameOver = ({ isOpen, finalScore, finalWords }) => {
+    const navigate = useNavigate();
+    const { saveScore } = useGame();
+
+    useEffect(() => {
+        if (isOpen) {
+            saveScore(finalScore, finalWords);
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     return (
@@ -19,7 +31,8 @@ const GameOver = ({ isOpen, finalScore, finalWords, onRestart }) => {
                         <p className='final-score'>{finalWords}</p>
                     </div>
                 </div>
-                <button className='restart-button' onClick={onRestart}>
+                {/*<button className='restart-button' onClick={onRestart}>*/}
+                <button className='restart-button' onClick={() => navigate('/')}>
                     JUGAR DE NUEVO
                 </button>
             </div>

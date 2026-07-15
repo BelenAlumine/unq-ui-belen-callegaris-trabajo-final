@@ -9,6 +9,10 @@ export const GameProvider = ({ children }) => {
     const [turn, setTurn] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    const [playerName, setPlayerNameState] = useState(() => {
+        return localStorage.getItem("playerName") || "";
+    });
 
     const lastWord = wordList[wordList.length - 1] || "";
 
@@ -41,22 +45,47 @@ export const GameProvider = ({ children }) => {
             return { success: false, error: "HUBO UN ERROR. VUELVA A INTENTAR." };
         } finally {
             setIsSubmitting(false);
-        }
-        
-    }
+        }  
+    };
 
     const restartGame = () => {
         setWordList([]);
         setScore(0);
         setTurn(0);
         setGameOver(false);
-    }
+    };
 
     const endGame = () => setGameOver(true);
 
     const clearWord = (word) => {
         return word.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    } 
+    };
+
+    const setPlayerName = (name) => {
+        localStorage.key(name);
+        localStorage.setItem("playerName", name);
+    };
+
+    const clearPlayerName = () => {
+        setPlayerName("");
+        localStorage.removeItem("playerName");
+    };
+
+    const saveScore = (score, words) => {
+        const leaderBoard = JSON.parse(localStorage.getItem("leaderBoard")) || [];
+        leaderBoard.push({
+            name: playerName,
+            score,
+            words
+        })
+        leaderBoard.sort((a, b) => b.score -a.score);
+        const topTen = leaderBoard.slice(0, 10);
+        localStorage.setItem("leaderBoard", JSON.stringify(topTen));
+    };
+
+    const getLeaderBoard = () => {
+        return JSON.parse(localStorage.getItem("leaderBoard")) || [];
+    };
 
     return (
         <GameContext.Provider
@@ -69,7 +98,12 @@ export const GameProvider = ({ children }) => {
                 isSubmitting,
                 handleWordSubmit,
                 endGame,
-                restartGame
+                restartGame,
+                playerName, 
+                setPlayerName, 
+                clearPlayerName,
+                saveScore, 
+                getLeaderBoard
             }}
         >
             {children}
