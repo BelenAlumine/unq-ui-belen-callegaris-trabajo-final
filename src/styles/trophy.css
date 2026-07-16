@@ -1,0 +1,11 @@
+.pixel-trophy {
+  display: inline-block;
+  background-color: transparent;
+  font-size: 4px;
+  width: 1em;
+  height: 1em;
+  box-shadow:
+    3em 0 0 #000, 4em 0 0 #000, 5em 0 0 #000, 6em 0 0 #000, 7em 0 0 #000, 8em 0 0 #000, 1em 1em 0 #000, 2em 1em 0 #000, 9em 1em 0 #000, 10em 1em 0 #000, 0 2em 0 #000, 2em 2em 0 #000, 9em 2em 0 #000, 11em 2em 0 #000, 0 3em 0 #000, 2em 3em 0 #000, 9em 3em 0 #000, 11em 3em 0 #000, 1em 4em 0 #000, 2em 4em 0 #000, 9em 4em 0 #000, 10em 4em 0 #000, 2em 5em 0 #000, 3em 5em 0 #000, 8em 5em 0 #000, 9em 5em 0 #000, 3em 6em 0 #000, 4em 6em 0 #000, 7em 6em 0 #000, 8em 6em 0 #000, 4em 7em 0 #000, 7em 7em 0 #000, 4em 8em 0 #000, 7em 8em 0 #000, 3em 9em 0 #000, 4em 9em 0 #000, 5em 9em 0 #000, 6em 9em 0 #000, 7em 9em 0 #000, 8em 9em 0 #000, 2em 10em 0 #000, 9em 10em 0 #000, 2em 11em 0 #000, 3em 11em 0 #000, 4em 11em 0 #000, 5em 11em 0 #000, 6em 11em 0 #000, 7em 11em 0 #000, 8em 11em 0 #000, 9em 11em 0 #000,
+    3em 1em 0 #f8b800, 4em 1em 0 #f8b800, 5em 1em 0 #f8b800, 7em 1em 0 #f8b800, 8em 1em 0 #f8b800, 3em 2em 0 #f8b800, 4em 2em 0 #f8b800, 6em 2em 0 #f8b800, 7em 2em 0 #f8b800, 8em 2em 0 #f8b800, 3em 3em 0 #f8b800, 4em 3em 0 #f8b800, 5em 3em 0 #f8b800, 6em 3em 0 #f8b800, 7em 3em 0 #f8b800, 8em 3em 0 #f8b800, 3em 4em 0 #f8b800, 4em 4em 0 #f8b800, 5em 4em 0 #f8b800, 6em 4em 0 #f8b800, 7em 4em 0 #f8b800, 8em 4em 0 #f8b800, 4em 5em 0 #f8b800, 5em 5em 0 #f8b800, 6em 5em 0 #f8b800, 7em 5em 0 #f8b800, 5em 6em 0 #f8b800, 6em 6em 0 #f8b800, 5em 7em 0 #f8b800, 6em 7em 0 #f8b800, 5em 8em 0 #f8b800, 6em 8em 0 #f8b800, 3em 10em 0 #f8b800, 4em 10em 0 #f8b800, 5em 10em 0 #f8b800, 6em 10em 0 #f8b800, 7em 10em 0 #f8b800, 8em 10em 0 #f8b800,
+    6em 1em 0 #fff, 5em 2em 0 #fff;
+}

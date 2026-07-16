@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { GameProvider } from './context/GameContext';
-import Home from '../src/pages/Home'
-import Game from '../src/pages/Game'
+import { LeaderboardProvider } from './context/LeaderboardContext';
+import Home from './pages/Home';
+import Game from './pages/Game';
 
 const NotFound = () => {
   return (
@@ -17,15 +18,17 @@ const NotFound = () => {
 
 function App() {
   return (
-    <GameProvider>
-      <Router>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/game' element={<Game />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-      </Router>
-    </GameProvider>
+    <LeaderboardProvider>
+      <GameProvider>
+        <Router>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/game' element={<Game />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </Router>
+      </GameProvider>
+    </LeaderboardProvider>
   )
 }
 

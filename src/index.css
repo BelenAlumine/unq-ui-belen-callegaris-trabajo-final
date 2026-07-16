@@ -3,8 +3,6 @@
 :root {
     --black-1: #000000;
     --black-2: #1a1a1a;
-    --black-3: #000000d9;
-    --black-4: #000000cc;
     --white-1: #ffffff;
     --white-2: #f0f0f0;
     --white-3: #d0d0d0;
@@ -22,6 +20,10 @@
     --magenta-1: #FF00FF;
 }
 
+html {
+    font-size: 14px;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -33,7 +35,7 @@ html, body {
         linear-gradient(45deg, transparent 25%, var(--green-1) 25%, var(--green-1) 75%, transparent 75%);
     background-size: 40px 40px;
     background-position: 0 0, 20px 20px;
-    opacity: 0.95;
+    opacity: 1;
     display: flex;
     justify-content: center;
     align-items: center;

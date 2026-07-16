@@ -1,0 +1,64 @@
+.game-form {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.game-input {
+    width: 85%;
+    padding: 8px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: var(--black-2);
+    color: var(--white-1);
+    border: 4px solid var(--gray-3);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.game-input:focus {
+    border-color: var(--green-1);
+}
+
+.game-input.has-error {
+    border-color: var(--red-1);
+}
+
+.game-input.has-error:focus {
+    border-color: var(--red-1);
+    animation: shake 0.4s ease;
+}
+
+.error-msg {
+    color: var(--red-1);
+    font-size: 0.7rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.retro-button {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--white-1);
+    color: var(--black-1);
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.retro-button:hover {
+    background-color: var(--red-1);
+    color: var(--white-1);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}

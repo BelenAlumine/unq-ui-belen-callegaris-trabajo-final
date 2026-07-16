@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../context/GameContext';
+import { useLeaderboard } from '../context/LeaderboardContext';
+import RetroInput from '../components/RetroInput';
+import RetroButton from '../components/RetroButton';
 import '../styles/game.css';
-import '../styles/gameOver.css';
 import '../styles/wordInput.css';
-//import '../styles/home.css';
 
 const Home = () => {
-    const { playerName, setPlayerName, restartGame } = useGame();
+    const { restartGame } = useGame();
+    const { playerName, setPlayerName } = useLeaderboard();
     const [inputValue, setInputValue] = useState(playerName);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const cleanName = inputValue.trim();
 
         if (!cleanName) {
@@ -36,25 +37,23 @@ const Home = () => {
                 INGRESA TU NOMBRE PARA JUGAR
             </p>
 
-            <form onSubmit={handleSubmit} className="game-form">
-                <input
-                    type="text"
-                    className={`game-input home-input`}
+            <div className="word-input-container">
+                <RetroInput
                     value={inputValue}
                     onChange={(e) => {
                         setInputValue(e.target.value);
                         if (error) setError("");
                     }}
                     placeholder="TU NOMBRE"
+                    error={error}
                     autoFocus
+                    maxLength={7}
                 />
-            </form>
+            </div>
 
-            {error && <p className="error-msg">{error}</p>}
-
-            <button className="restart-button" onClick={handleSubmit}>
+            <RetroButton onClick={handleSubmit}>
                 JUGAR
-            </button>
+            </RetroButton>
         </div>
     );
 };

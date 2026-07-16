@@ -8,16 +8,24 @@ const Timer = ({ turn, onTimeUp, maxSeconds, onSecondsLeft }) => {
     const intervalRef = useRef(null);
 
     useEffect(() => {
+        onSecondsLeft(seconds);
+    }, [seconds, onSecondsLeft]);
+
+    useEffect(() => {
+        if (seconds <= 0 && !isRunning) {
+            onTimeUp();
+        }
+    }, [seconds, isRunning, onTimeUp]);
+
+    useEffect(() => {
         if (isRunning) {
             intervalRef.current = setInterval(() => {
                 setSeconds((prevSeconds) => {
                     if (prevSeconds <= 1) {
                         clearInterval(intervalRef.current);
                         setIsRunning(false);
-                        onTimeUp();
                         return 0;
                     }
-                    onSecondsLeft(prevSeconds - 1);
                     return prevSeconds - 1;
                 });
             }, 1000);
@@ -38,9 +46,7 @@ const Timer = ({ turn, onTimeUp, maxSeconds, onSecondsLeft }) => {
     };
 
     return (
-        <div className='container'>
-            <h1 className={`timer ${seconds <= 5 ? 'timer-warning' : ''}`}>{formatTime(seconds)}</h1>
-        </div>
+        <h1 className={`timer ${seconds <= 5 ? 'timer-warning' : ''}`}>{formatTime(seconds)}</h1>
     );
 };
 

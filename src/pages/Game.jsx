@@ -17,8 +17,6 @@ const Game = () => {
     else return `[${wordList.join(', ')}]`;
   }
 
-
-
   return (
     <div>
       <div className="game-box">

@@ -1,5 +1,6 @@
-import { createContext, useState, useContext } from "react";
-import { validateWord } from '../service/apiService'
+import { createContext, useState, useContext, useMemo, useCallback } from "react";
+import { validateWord } from '../service/apiService.js';
+import { validateSubmission } from '../utils/wordValidator';
 
 const GameContext = createContext();
 
@@ -9,30 +10,22 @@ export const GameProvider = ({ children }) => {
     const [turn, setTurn] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    
-    const [playerName, setPlayerNameState] = useState(() => {
-        return localStorage.getItem("playerName") || "";
-    });
 
     const lastWord = wordList[wordList.length - 1] || "";
 
-    const handleWordSubmit = async (word) => {
-        const cleanWord = clearWord(word.trim().toLowerCase());
+    const handleWordSubmit = useCallback(async (word) => {
+        const { cleanWord, valid, error } = validateSubmission(word, {
+            lastWord,
+            wordList,
+            gameOver,
+            isSubmitting,
+        });
 
-        if (isSubmitting) return { success: false, error: "..."}
+        if (!valid) return { success: false, error };
 
-        if (!cleanWord || gameOver) return { success: false, error: "JUEGO TERMINADO" };
-
-        if (wordList.includes(cleanWord)) return { success: false, error: "PALABRA REPETIDA" } 
-
-        if (lastWord) {
-            const initial = lastWord.slice(-1);
-            if (!cleanWord.startsWith(initial)) return { success: false, error: `DEBE INICIAR EN '${initial}'` }
-        }
         try {
             setIsSubmitting(true);
             const data = await validateWord(cleanWord);
-            console.log("data:::", data);
 
             if (data.exists === true) {
                 setWordList((prev) => [...prev, cleanWord]);
@@ -40,72 +33,37 @@ export const GameProvider = ({ children }) => {
                 setTurn((prev) => prev + 1);
                 return { success: true };
             }
-            return { success: false, error: "PALABRA INVÁLIDA" } 
+            return { success: false, error: "PALABRA INVÁLIDA" };
         } catch {
             return { success: false, error: "HUBO UN ERROR. VUELVA A INTENTAR." };
         } finally {
             setIsSubmitting(false);
-        }  
-    };
+        }
+    }, [lastWord, wordList, gameOver, isSubmitting]);
 
-    const restartGame = () => {
+    const restartGame = useCallback(() => {
         setWordList([]);
         setScore(0);
         setTurn(0);
         setGameOver(false);
-    };
+    }, []);
 
-    const endGame = () => setGameOver(true);
+    const endGame = useCallback(() => setGameOver(true), []);
 
-    const clearWord = (word) => {
-        return word.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    };
-
-    const setPlayerName = (name) => {
-        localStorage.key(name);
-        localStorage.setItem("playerName", name);
-    };
-
-    const clearPlayerName = () => {
-        setPlayerName("");
-        localStorage.removeItem("playerName");
-    };
-
-    const saveScore = (score, words) => {
-        const leaderBoard = JSON.parse(localStorage.getItem("leaderBoard")) || [];
-        leaderBoard.push({
-            name: playerName,
-            score,
-            words
-        })
-        leaderBoard.sort((a, b) => b.score -a.score);
-        const topTen = leaderBoard.slice(0, 10);
-        localStorage.setItem("leaderBoard", JSON.stringify(topTen));
-    };
-
-    const getLeaderBoard = () => {
-        return JSON.parse(localStorage.getItem("leaderBoard")) || [];
-    };
+    const value = useMemo(() => ({
+        wordList,
+        score,
+        turn,
+        gameOver,
+        lastWord,
+        isSubmitting,
+        handleWordSubmit,
+        endGame,
+        restartGame,
+    }), [wordList, score, turn, gameOver, lastWord, isSubmitting, handleWordSubmit, endGame, restartGame]);
 
     return (
-        <GameContext.Provider
-            value={{
-                wordList,
-                score,
-                turn,
-                gameOver,
-                lastWord,
-                isSubmitting,
-                handleWordSubmit,
-                endGame,
-                restartGame,
-                playerName, 
-                setPlayerName, 
-                clearPlayerName,
-                saveScore, 
-                getLeaderBoard
-            }}
-        >
+        <GameContext.Provider value={value}>
             {children}
         </GameContext.Provider>
     );

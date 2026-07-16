@@ -1,22 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGame } from "../context/GameContext"
-import "../styles/gameOver.css"
+import { useLeaderboard } from "../context/LeaderboardContext";
+import LeaderBoard from "./LeaderBoard";
+import RetroButton from "./RetroButton";
+import "../styles/gameOver.css";
+import "../styles/trophy.css";
 
 const GameOver = ({ isOpen, finalScore, finalWords }) => {
     const navigate = useNavigate();
-    const { saveScore } = useGame();
+    const { saveScore } = useLeaderboard();
+    const [showLeaderboard, setShowLeaderboard] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
             saveScore(finalScore, finalWords);
         }
-    }, [isOpen]);
+    }, [isOpen, finalScore, finalWords, saveScore]);
 
     if (!isOpen) return null;
 
     return (
-        <div className='modal-container'>
+        <div className='modal-backdrop'>
             <div className='modal-content'>
                 <h2 className='modal-title'>
                     JUEGO TERMINADO
@@ -31,11 +35,16 @@ const GameOver = ({ isOpen, finalScore, finalWords }) => {
                         <p className='final-score'>{finalWords}</p>
                     </div>
                 </div>
-                {/*<button className='restart-button' onClick={onRestart}>*/}
-                <button className='restart-button' onClick={() => navigate('/')}>
+                <RetroButton onClick={() => navigate('/')}>
                     JUGAR DE NUEVO
-                </button>
+                </RetroButton>
+                <div className="trophy-section">
+                    <button className="trophy-button" onClick={() => setShowLeaderboard(true)}>
+                        <div className="pixel-trophy"></div>
+                    </button>
+                </div>
             </div>
+            <LeaderBoard isOpen={showLeaderboard} onClose={() => setShowLeaderboard(false)} />
         </div>
     )
 }

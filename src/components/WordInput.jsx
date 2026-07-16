@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useGame } from "../context/GameContext";
+import RetroInput from "./RetroInput";
 import '../styles/wordInput.css';
 
-const WordInput = ({ isDisable }) => {
+const WordInput = () => {
     const [inputValue, setInputValue] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
     const { handleWordSubmit, gameOver } = useGame();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         const cleanWord = inputValue.trim();
 
-        if (!cleanWord || isDisable) return;
+        if (!cleanWord) return;
         setErrorMsg("");
 
         const result = await handleWordSubmit(cleanWord);
@@ -23,22 +23,18 @@ const WordInput = ({ isDisable }) => {
 
     return (
         <div className="word-input-container">
-            <form onSubmit={handleSubmit} className="game-form">
-                <input
-                    type="text"
-                    placeholder="INGRESA UNA PALABRA"
-                    value={inputValue}
-                    disabled={gameOver}
-                    autoFocus
-                    onChange={(e) => {
-                            setInputValue(e.target.value);
-                            if (errorMsg) setErrorMsg("");
-                        }
-                    }
-                    className={`game-input ${errorMsg ? 'has-error' : ''}`}
-                />
-            </form>
-            {errorMsg && <p className="error-msg">{errorMsg}</p>}
+            <RetroInput
+                value={inputValue}
+                onChange={(e) => {
+                    setInputValue(e.target.value);
+                    if (errorMsg) setErrorMsg("");
+                }}
+                placeholder="INGRESA UNA PALABRA"
+                error={errorMsg}
+                disabled={gameOver}
+                autoFocus
+                onSubmit={handleSubmit}
+            />
         </div>
     );
 }
